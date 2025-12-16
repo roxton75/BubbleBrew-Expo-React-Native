@@ -1,53 +1,86 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
+// constants/theme.ts
+const theme = {
+  colors: {
+    primary: "#111827", // deep charcoal
+    accent: "#007250ff", // teal (brand color)
+    background: "#ebeae8ff", // light warm background
+    surface: "#FFFFFF", // cards / sheets
+    divider: "#E5E7EB",
 
-import { Platform } from 'react-native';
+    text: {
+      primary: "#111827ff",
+      secondary: "#6B7280",
+      muted: "#9CA3AF",
+    },
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+    danger: "#EF4444",
 
-export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+    status: {
+      assigned: "#F8FAFC",   // subtle gray-blue
+      preparing: "#FFF7ED",  // warm soft yellow
+      ready: "#EFF6FF",      // soft blue
+      paid: "#ECFDF5",       // soft green
+      cancelled: "#FEF2F2",  // soft red
+    },
   },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+
+  spacing: {
+    xs: 4,
+    sm: 8,
+    md: 12,
+    lg: 16,
+    xl: 24,
+    xxl: 32,
+  },
+
+  typography: {
+    title: { fontSize: 20, fontWeight: "700" },
+    h1: { fontSize: 18, fontWeight: "600" },
+    h2: { fontSize: 16, fontWeight: "500" },
+    body: { fontSize: 14, fontWeight: "400" },
+    small: { fontSize: 12, fontWeight: "400" },
+    button: { fontSize: 15, fontWeight: "700" },
+  },
+
+  radii: {
+    sm: 6,
+    md: 10,
+    lg: 14,
+    xl: 20,
+  },
+
+  shadows: {
+    card: {
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.08,
+      shadowRadius: 6,
+      elevation: 2,
+    },
+  },
+
+  getStatusColor(status: string) {
+    const key = status?.toLowerCase();
+    const map: any = {
+      assigned: theme.colors.status.assigned,
+      preparing: theme.colors.status.preparing,
+      ready: theme.colors.status.ready,
+      paid: theme.colors.status.paid,
+      cancelled: theme.colors.status.cancelled,
+    };
+    return map[key] ?? theme.colors.surface;
   },
 };
 
-export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
+export default theme;
+
+export const Colors = {
+  light: {
+    primary: "#00A86B",
+    background: "#F5F5F5",
   },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
+  dark: {
+    primary: "#00A86B",
+    background: "#000000",
   },
-  web: {
-    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    serif: "Georgia, 'Times New Roman', serif",
-    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-  },
-});
+};

@@ -1,48 +1,41 @@
 {
   "expo": {
-    "name": "BubbleBrew",
-    "slug": "BubbleBrew",
+    "name": "Bubble Brew",
+    "slug": "bubble-brew",
+    "scheme": "bubblebrew",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "bubblebrew",
-    "userInterfaceStyle": "automatic",
-    "newArchEnabled": true,
-    "ios": {
-      "supportsTablet": true
+    "icon": "./assets/icons/icon.png",
+    "splash": {
+      "image": "./assets/icons/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F9FAFB"
     },
+    "assetBundlePatterns": [
+      "assets/**/*"
+    ],
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/images/android-icon-foreground.png",
-        "backgroundImage": "./assets/images/android-icon-background.png",
-        "monochromeImage": "./assets/images/android-icon-monochrome.png"
+        "foregroundImage": "./assets/icons/icon.png",
+        "backgroundColor": "#F9FAFB"
       },
-      "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "package": "com.yourcompany.bubblebrew"
     },
-    "web": {
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.yourcompany.bubblebrew"
     },
     "plugins": [
-      "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
-          "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
-          "dark": {
-            "backgroundColor": "#000000"
-          }
-        }
-      ]
-    ],
-    "experiments": {
-      "typedRoutes": true,
-      "reactCompiler": true
-    }
+      "expo-font",
+      "expo-router"
+    ]
   }
 }

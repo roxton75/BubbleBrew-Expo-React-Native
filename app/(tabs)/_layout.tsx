@@ -1,35 +1,64 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { Tabs } from "expo-router";
+import React from "react";
+import { Platform } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import theme from "../../constants/theme";
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+export default function TabsLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+    
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveTintColor: theme.colors.accent,
+          tabBarInactiveTintColor: theme.colors.text.primary,
+          tabBarStyle: {
+            backgroundColor: theme.colors.surface,
+            borderTopColor: theme.colors.divider,
+            height: 64,
+            paddingTop: 2.5,
+            paddingBottom: Platform.OS === "ios" ? 16 : 8,
+          },
         }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
-    </Tabs>
+      >
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: "Home",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialIcons
+                name="home-filled"
+                size={size ?? 24}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="menu"
+          options={{
+            title: "Menu",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons
+                name="food-fork-drink"
+                size={size ?? 24}
+                color={color}
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="history"
+          options={{
+            title: "History",
+            tabBarIcon: ({ color, size }) => (
+              <MaterialIcons name="history" size={size ?? 24} color={color} />
+            ),
+          }}
+        />
+      </Tabs>
+    </GestureHandlerRootView>
   );
 }
