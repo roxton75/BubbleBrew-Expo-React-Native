@@ -15,7 +15,7 @@ import {
 } from "react-native";
 
 import { Ionicons, 
-  //MaterialIcons 
+  MaterialIcons 
 } from "@expo/vector-icons";
 import {
   GestureHandlerRootView,
@@ -202,22 +202,21 @@ export default function MenuScreen() {
       <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
         <Text style={styles.header}>Menu</Text>
 
-            
         <View style={styles.topRow}>
-          <View style={styles.searchWrap}>
+
+          <View style={styles.searchBar}>
+            <MaterialIcons name="search" size={18} />
 
             <TextInput
-              placeholder="Search"
+              placeholder="Search menu"
               placeholderTextColor="#9aa"
               value={q}
               onChangeText={setQ}
               style={styles.searchInput}
             />
+
             {q.length > 0 && (
-              <TouchableOpacity
-              onPress={() => setQ("")}
-              style={styles.searchClear}
-              >
+              <TouchableOpacity onPress={() => setQ("")}>
                 <Ionicons name="close" size={18} color="#999" />
               </TouchableOpacity>
             )}
@@ -248,12 +247,24 @@ export default function MenuScreen() {
           </View>
         </View>
 
+        {/* EMPTY STATE */}
+        {items.length === 0 && (
+          <View style={styles.emptyState}>
+            <Ionicons
+              name="restaurant-outline"
+              size={42}
+              color={theme.colors.text.muted}
+            />
+            <Text style={styles.emptyTitle}>No menu items yet</Text>
+            <Text style={styles.emptySub}>
+              Tap the + button to add your first item
+            </Text>
+          </View>
+        )}
+
         {view === "list" ? (
           <FlatList
             key="list"
-            // data={items.filter((it) =>
-            //   it.name.toLowerCase().includes(q.toLowerCase())
-            // )}
             data={filteredItems}
             keyExtractor={(i) => i.id}
             renderItem={renderListItem}
@@ -279,18 +290,6 @@ export default function MenuScreen() {
             contentContainerStyle={{ paddingTop: 8, paddingBottom: 0 }}
           />
         )}
-
-        {/* <EditItemSheet
-          visible={editModalOpen}
-          initial={editing}
-          onClose={() => {
-            setEditModalOpen(false);
-            setEditing(null);
-          }}
-          onSave={(id: string | null, name: string, price: number) =>
-            saveEdit(id, name, price)
-          }
-        /> */}
 
         <EditItemSheet
           visible={editModalOpen}
@@ -484,14 +483,22 @@ const styles = StyleSheet.create({
     paddingBottom: 12,
   },
 
-  searchWrap: { flex: 1 },
-  searchInput: {
+  searchBar: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
     height: 44,
     borderRadius: 22,
+    paddingHorizontal: 14,
+    backgroundColor: "#fff",
     borderWidth: 2,
-    borderColor: theme.colors.primary,
-    paddingHorizontal: 18,
-    backgroundColor: theme.colors.surface,
+    borderColor: "#000",
+  },
+
+  searchInput: {
+    flex: 1,
+    fontSize: 14,
+    fontWeight: 400,
   },
   searchClear: { position: "absolute", right: 16, paddingTop: 12 },
 
@@ -510,6 +517,28 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.accent,
     borderColor: theme.colors.accent,
   },
+
+  emptyState: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+  },
+
+  emptyTitle: {
+    fontSize: 16,
+    fontWeight: "700",
+    marginTop: 10,
+    color: theme.colors.text.primary,
+  },
+
+  emptySub: {
+    fontSize: 13,
+    marginTop: 4,
+    color: theme.colors.text.muted,
+    textAlign: "center",
+  },
+
   listCard: {
     flexDirection: "row",
     alignItems: "center",
