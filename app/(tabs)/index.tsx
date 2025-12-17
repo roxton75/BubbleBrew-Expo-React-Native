@@ -13,16 +13,15 @@ import {
 import { Swipeable } from "react-native-gesture-handler";
 import "react-native-get-random-values";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { openRealm } from "../../realm/realmConfig";
 
 import Realm from "realm";
 import ConfirmDialog from "../../components/ConfirmDialog";
 
 import ConfirmOrderModal from "../../components/ConfirmOrderModal";
-//import EditOrderModal from "../../components/EditOrderModal";
 import SelectItemsModal from "../../components/SelectItemsModal";
 import TopNotification from "../../components/TopNotification";
 import theme from "../../constants/theme";
-import { openRealm } from "../../realm/realmConfig";
 
 /* ---------------- TYPES ---------------- */
 
@@ -293,6 +292,8 @@ export default function Home() {
         realm.delete(order); // safe to delete drafts
       }
     });
+    // ✅ FORCE UI REFRESH
+    await loadOrders();
 
     setShowDeleteDialog(false);
     setDeleteTargetId(null);
@@ -471,17 +472,31 @@ export default function Home() {
           </Pressable>
         ))}
       </View>
+      {finalOrders.length === 0 && (
+        <View style={styles.emptyState}>
+          <MaterialIcons
+            name={
+              homeTab === "active" ? "receipt-long" : "check-circle-outline"
+            }
+            size={42}
+            color={theme.colors.text.muted}
+          />
+          <Text style={styles.emptyTitle}>
+            {homeTab === "active" ? "No active orders" : "No ready orders"}
+          </Text>
+          <Text style={styles.emptySub}>
+            {homeTab === "active"
+              ? "New and preparing orders will appear here"
+              : "Completed orders will show here"}
+          </Text>
+        </View>
+      )}
 
       <FlatList
         data={finalOrders}
         keyExtractor={(item) => item.orderId}
         renderItem={renderOrder}
         showsVerticalScrollIndicator={false}
-        ListEmptyComponent={
-          <Text style={styles.emptyText}>
-            {homeTab === "active" ? "No active orders" : "No ready orders"}
-          </Text>
-        }
       />
 
       <SelectItemsModal
@@ -702,7 +717,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
 
-
   status_new: {
     backgroundColor: "#e6f0f4ff", // light green tint
   },
@@ -759,5 +773,25 @@ const styles = StyleSheet.create({
 
   deleteBtn: {
     borderColor: theme.colors.divider,
+  },
+  emptyState: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 60,
+  },
+
+  emptyTitle: {
+    fontSize: 16,
+    fontWeight: "700",
+    marginTop: 12,
+    color: theme.colors.text.primary,
+  },
+
+  emptySub: {
+    fontSize: 13,
+    marginTop: 4,
+    color: theme.colors.text.muted,
+    textAlign: "center",
   },
 });
