@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useFocusEffect } from "expo-router";
+import React, { useState } from "react";
 import {
   //Animated,
   FlatList,
@@ -32,23 +33,18 @@ export default function History() {
           .filtered("status == 'paid' OR status == 'cancelled'")
           .sorted("createdAt", true);
 
-        const updateUI = () => {
-          setOrders(JSON.parse(JSON.stringify(ordersResult)));
-        };
-
-        updateUI();
-        ordersResult.addListener(updateUI);
+        setOrders(JSON.parse(JSON.stringify(ordersResult)));
       };
 
       loadHistory();
 
       return () => {
-        if (ordersResult) ordersResult.removeAllListeners();
-        if (realm && !realm.isClosed) realm.close();
+        if (realm && !realm.isClosed) {
+          realm.close();
+        }
       };
     }, [])
   );
-
 
   const toggleExpand = (id: string) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -79,25 +75,51 @@ export default function History() {
       <View style={styles.container}>
         <Text style={styles.title}>History</Text>
 
+
         <View style={styles.searchBox}>
-          {/* <MaterialIcons name="search" size={18} /> */}
+          <MaterialIcons name="search" size={18} />
+
           <TextInput
-            placeholder="Search orders"
-            placeholderTextColor="#9CA3AF"
+            placeholder="Order history"
+            placeholderTextColor={theme.colors.text.muted}
             value={search}
             onChangeText={setSearch}
             style={styles.searchInput}
           />
+
+          {search.length > 0 && (
+            <TouchableOpacity onPress={() => setSearch("")}>
+              <Ionicons
+                name="close"
+                size={18}
+                color={theme.colors.text.muted}
+              />
+            </TouchableOpacity>
+          )}
         </View>
 
         {filteredOrders.length === 0 && (
+          <View style={styles.emptyState}>
+            <Ionicons
+              name="time-outline"
+              size={42}
+              color={theme.colors.text.muted}
+            />
+            <Text style={styles.emptyTitle}>No order history</Text>
+            <Text style={styles.emptySub}>
+              Paid and cancelled orders will appear here
+            </Text>
+          </View>
+        )}
+
+        {/* {filteredOrders.length === 0 && (
           <View style={styles.emptyState}>
             <Text style={styles.emptyTitle}>No past orders yet</Text>
             <Text style={styles.emptySub}>
               Paid and cancelled orders will appear here
             </Text>
           </View>
-        )}
+        )} */}
 
         <FlatList
           data={filteredOrders}
@@ -200,20 +222,22 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     color: theme.colors.accent,
   },
-
   searchBox: {
+    flexDirection: "row",
+    alignItems: "center",
     height: 44,
     borderRadius: 22,
     paddingHorizontal: 14,
-    justifyContent: "center",
-    marginBottom: 12,
     borderWidth: 2,
+    borderColor: theme.colors.primary,
     backgroundColor: theme.colors.surface,
+    marginBottom: 12,
   },
 
   searchInput: {
+    flex: 1,
     fontSize: 14,
-    //fontWeight: 700,
+    color: theme.colors.text.primary,
   },
 
   card: {
