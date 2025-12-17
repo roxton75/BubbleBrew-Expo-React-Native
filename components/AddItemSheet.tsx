@@ -375,7 +375,7 @@ const styles = StyleSheet.create({
   input: {
     height: 44,
     borderRadius: 8,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: theme.colors.divider,
     paddingHorizontal: 12,
     backgroundColor: theme.colors.surface,
@@ -415,7 +415,7 @@ const styles = StyleSheet.create({
   },
   btnGhost: {
     backgroundColor: theme.colors.surface,
-    borderWidth: 1.8,
+    borderWidth: 2,
     borderColor: theme.colors.divider,
   },
   btnGhostText: { color: "#222", fontWeight: "700" },
