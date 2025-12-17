@@ -7,7 +7,6 @@ import {
   Pressable,
   StyleSheet,
   TextInput,
-  //ToastAndroid,
   Image,
 } from "react-native";
 import theme from "../constants/theme";
