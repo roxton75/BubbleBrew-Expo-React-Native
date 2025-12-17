@@ -16,7 +16,7 @@ const theme = {
     danger: "#EF4444",
 
     status: {
-      assigned: "#F8FAFC",   // subtle gray-blue
+      new: "#F8FAFC",   // subtle gray-blue
       preparing: "#FFF7ED",  // warm soft yellow
       ready: "#EFF6FF",      // soft blue
       paid: "#ECFDF5",       // soft green
@@ -62,7 +62,7 @@ const theme = {
   getStatusColor(status: string) {
     const key = status?.toLowerCase();
     const map: any = {
-      assigned: theme.colors.status.assigned,
+      assigned: theme.colors.status.new,
       preparing: theme.colors.status.preparing,
       ready: theme.colors.status.ready,
       paid: theme.colors.status.paid,
