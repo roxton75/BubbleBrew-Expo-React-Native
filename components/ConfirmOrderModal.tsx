@@ -15,7 +15,7 @@ import * as Haptics from "expo-haptics";
 import { saveOrder } from "../realm/orderActions";
 
 type OrderItem = {
-  itemId: string; // ✅ correct key
+  itemId: string; //  correct key
   name: string;
   price: number;
   quantity: number;
@@ -27,8 +27,6 @@ type Props = {
   items: OrderItem[];
   onBack: () => void;
   onPlaceOrderSuccess: (name: string, items: OrderItem[]) => void;
-
-  // ✅ ADD THESE
   isEditing?: boolean;
   initialCustomerName?: string | null;
 };
