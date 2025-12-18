@@ -3,7 +3,6 @@ import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import { useFocusEffect } from "expo-router";
 import React, { useState } from "react";
 import {
-  //Animated,
   FlatList,
   LayoutAnimation,
   StyleSheet,
@@ -112,15 +111,6 @@ export default function History() {
             </Text>
           </View>
         )}
-
-        {/* {filteredOrders.length === 0 && (
-          <View style={styles.emptyState}>
-            <Text style={styles.emptyTitle}>No past orders yet</Text>
-            <Text style={styles.emptySub}>
-              Paid and cancelled orders will appear here
-            </Text>
-          </View>
-        )} */}
 
         <FlatList
           data={filteredOrders}
