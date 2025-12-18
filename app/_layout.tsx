@@ -7,7 +7,6 @@ import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "react-native-reanimated";
 
-// Update the import path if the file exists locally
 import { useColorScheme } from "../hooks/use-color-scheme";
 
 export const unstable_settings = {
@@ -22,7 +21,7 @@ export default function RootLayout() {
 
   useEffect(() => {
     const prepare = async () => {
-      // wait for app setup (Realm, fonts, etc.)
+      // waits for app setup (Realm, fonts, etc.)
       await new Promise((resolve) => setTimeout(resolve, 300));
       await SplashScreen.hideAsync();
     };
@@ -32,7 +31,6 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      {/* <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}> */}
       <ThemeProvider value={DarkTheme}>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
