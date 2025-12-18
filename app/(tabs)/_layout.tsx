@@ -29,14 +29,14 @@ export default function TabsLayout() {
 
             height:
               Platform.OS === "android"
-                ? 50 + insets.bottom // 👈 fixes 3-button nav users
+                ? 50 + insets.bottom 
                 : 64,
 
             paddingTop: 3,
 
             paddingBottom:
               Platform.OS === "android"
-                ? insets.bottom // 👈 pushes UI above nav buttons
+                ? insets.bottom 
                 : 16,
           },
         }}
