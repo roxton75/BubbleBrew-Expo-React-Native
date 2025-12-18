@@ -22,8 +22,6 @@ import theme from "../constants/theme";
 import { useMenuStore } from "../state/useMenuStore";
 import * as FileSystem from "expo-file-system/legacy";
 
-
-
 // match new createMenuItem size input
 type MenuSize = { label: string; price?: number };
 
@@ -97,34 +95,6 @@ export default function AddItemSheet({
   const bottomSafe =
     typeof getBottomSpace === "function" ? getBottomSpace() : 16;
   const canSave = Boolean(name.trim()) && !isNaN(Number(price));
-  // put near top of file with other helpers/imports
-
-  // const IMAGE_PICKER_MEDIA_TYPES: any =
-  //   // try modern export first, then legacy, then string fallback
-  //   (ImagePicker as any).MediaType ??
-  //   (ImagePicker as any).MediaTypeOptions ??
-  //   "Images";
-
-  // const pickImage = async () => {
-  //   try {
-  //     const { status } =
-  //       await ImagePicker.requestMediaLibraryPermissionsAsync();
-  //     if (status !== "granted") return;
-     
-  //     const res = await ImagePicker.launchImageLibraryAsync({
-  //       mediaTypes: IMAGE_PICKER_MEDIA_TYPES.Images ?? IMAGE_PICKER_MEDIA_TYPES, // works whether enum or string
-  //       allowsEditing: true,
-  //       quality: 0.7,
-  //       aspect: [1, 1],
-  //     });
-
-  //     if (!res.canceled && res.assets?.length) setImageUri(res.assets[0].uri);
-  //     else if (!(res as any).canceled && (res as any).uri)
-  //       setImageUri((res as any).uri);
-  //   } catch (e) {
-  //     console.warn("pickImage error", e);
-  //   }
-  // };
 
 const IMAGE_DIR = FileSystem.documentDirectory + "menu-images/";
 
