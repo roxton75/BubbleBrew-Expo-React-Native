@@ -16,8 +16,6 @@ export async function saveOrder({
 }) {
   const realm = await openRealm();
 
-  // const orderId = `${Date.now()}`; // ✅ React Native safe
-
   const now = new Date();
 
   // const orderId = now
@@ -38,7 +36,6 @@ export async function saveOrder({
 
   realm.write(() => {
     realm.create("Order", {
-      //orderId: uuidv4(), // ✅ NEW UNIQUE ID
       orderId: readableOrderId,
       customerName: customerName ?? null,
       status: "new",
