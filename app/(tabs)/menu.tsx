@@ -13,14 +13,8 @@ import {
   TouchableWithoutFeedback,
   View,
 } from "react-native";
-
-import { Ionicons, 
-  MaterialIcons 
-} from "@expo/vector-icons";
-import {
-  GestureHandlerRootView,
-  Swipeable,
-} from "react-native-gesture-handler";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import {GestureHandlerRootView,Swipeable} from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 import AddItemSheet from "../../components/AddItemSheet";
 import ConfirmDialog from "../../components/ConfirmDialog";
@@ -30,7 +24,7 @@ import theme from "../../constants/theme";
 import { useMenuStore } from "../../state/useMenuStore";
 
 const { width } = Dimensions.get("window");
-const gridCardWidth = (width - 16 * 2 - 12) / 2; // padding & gap
+const gridCardWidth = (width - 16 * 2 - 12) / 2; 
 
 export default function MenuScreen() {
   // view modes
@@ -48,21 +42,17 @@ export default function MenuScreen() {
   const addItem = useMenuStore((s) => s.add);
   const editItem = useMenuStore((s) => s.edit);
   const removeItem = useMenuStore((s) => s.remove);
-
-  // load realm items once when screen mounts
+  
   useEffect(() => {
     load();
     return () => unload();
   }, [load, unload]);
 
-  // open edit modal
   const openEdit = (item: any) => {
     setEditing(item);
     setEditModalOpen(true);
   };
 
-  // confirm delete
-  // inside MenuScreen component
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [confirmItem, setConfirmItem] = useState<any | null>(null);
 
@@ -74,7 +64,7 @@ export default function MenuScreen() {
   const handleConfirmDelete = async () => {
     if (!confirmItem) return;
     try {
-      await removeItem(confirmItem.id); // or use useMenuStore.getState().remove()
+      await removeItem(confirmItem.id);
     } catch (e) {
       console.warn("delete failed", e);
     } finally {
@@ -110,7 +100,6 @@ export default function MenuScreen() {
         onLongPress={() => openActionMenu(item)}
         style={styles.listCard}
       >
-        {/* <View style={styles.listImagePlaceholder} /> */}
         {item.imageUri ? (
           <Image
             source={{ uri: item.imageUri }}
@@ -336,7 +325,6 @@ export default function MenuScreen() {
 
         <FAB
           onSave={(_name?: string, _price?: number) => {
-            // open add sheet when FAB is pressed
             setAddModalOpen(true);
           }}
         />
@@ -358,7 +346,7 @@ export default function MenuScreen() {
   );
 }
 
-/* ---------- GridDropdown (unchanged) ---------- */
+/* ---------- GridDropdown ---------- */
 function GridDropdown({
   visible,
   onClose,
@@ -435,7 +423,7 @@ function GridDropdown({
   );
 }
 
-/* ---------- Styles (reuse existing styles) ---------- */
+/* ---------- Styles ---------- */
 const dropdownStyles = StyleSheet.create({
   overlay: {
     position: "absolute",
