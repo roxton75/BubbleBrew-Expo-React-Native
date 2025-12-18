@@ -26,7 +26,7 @@ import theme from "../../constants/theme";
 /* ---------------- TYPES ---------------- */
 
 type OrderItem = {
-  itemId: string; // ✅ REQUIRED
+  itemId: string;
   name: string;
   price: number;
   quantity: number;
@@ -45,7 +45,7 @@ type Order = {
 const NEXT_STATUS = {
   new: "preparing",
   preparing: "ready",
-  ready: "paid", // 🔥 THIS is the key
+  ready: "paid", 
 };
 
 const PREV_STATUS: Record<string, string | null> = {
@@ -68,13 +68,13 @@ function OrderTicket({
   onNext,
   onPrev,
   onDelete,
-  onEdit, // ✅ ADD
+  onEdit,
 }: {
   item: Order;
   onNext: (id: string, status: Order["status"]) => void;
   onPrev: (id: string, status: Order["status"]) => void;
   onDelete: (id: string) => void;
-  onEdit: (order: Order) => void; // ✅ ADD
+  onEdit: (order: Order) => void;
 }) {
   const scaleAnim = React.useRef(new Animated.Value(1)).current;
 
@@ -100,8 +100,7 @@ function OrderTicket({
   };
 
   const total = item.items.reduce((sum, i) => sum + i.price * i.quantity, 0);
-  // const [menuOpen, setMenuOpen] = React.useState(false);
-
+  
   const ctaLabel = getCTALabel(item.status);
   const nextStatus = NEXT_STATUS[item.status];
   const prevStatus = PREV_STATUS[item.status];
@@ -189,7 +188,7 @@ function OrderTicket({
             {item.status !== "ready" && (
               <Pressable
                 style={styles.iconBtn}
-                onPress={() => onEdit(item)} // ✅
+                onPress={() => onEdit(item)} 
               >
                 <MaterialIcons
                   name="edit"
@@ -287,12 +286,11 @@ export default function Home() {
       if (!order) return;
 
       if (order.status === "ready") {
-        order.status = "cancelled"; // 🔥 goes to History
+        order.status = "cancelled"; 
       } else {
-        realm.delete(order); // safe to delete drafts
+        realm.delete(order); 
       }
     });
-    // ✅ FORCE UI REFRESH
     await loadOrders();
 
     setShowDeleteDialog(false);
@@ -316,7 +314,7 @@ export default function Home() {
             customerName: o.customerName,
             status: o.status,
             items: o.items.map((i: any) => ({
-              itemId: i.itemId, // <-- ADD THIS
+              itemId: i.itemId,
               name: i.name,
               price: i.price,
               quantity: i.quantity,
@@ -350,7 +348,7 @@ export default function Home() {
         customerName: o.customerName,
         status: o.status,
         items: o.items.map((i: any) => ({
-          itemId: i.itemId, // ✅ ADD THIS
+          itemId: i.itemId,
           name: i.name,
           price: i.price,
           quantity: i.quantity,
@@ -410,7 +408,7 @@ export default function Home() {
         setDeleteTargetId(id);
         setShowDeleteDialog(true);
       }}
-      onEdit={handleEditOrder} // ✅ ADD
+      onEdit={handleEditOrder}
     />
   );
 
@@ -763,7 +761,7 @@ const styles = StyleSheet.create({
     marginTop: 3.5,
     width: 42,
     height: 42,
-    borderRadius: 8, // rounded vertices
+    borderRadius: 8,
     borderWidth: 2,
     borderColor: theme.colors.divider,
     justifyContent: "center",
