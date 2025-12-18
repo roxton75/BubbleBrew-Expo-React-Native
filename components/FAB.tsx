@@ -4,7 +4,7 @@ import React from "react";
 import { StyleSheet, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import theme from "../constants/theme";
-import AddItemSheet from "./AddItemSheet"; // or EditItemSheet if you prefer
+import AddItemSheet from "./AddItemSheet"; 
 
 export default function FAB({
   onSave,
