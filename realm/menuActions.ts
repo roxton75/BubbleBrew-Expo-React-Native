@@ -7,7 +7,7 @@ export type SizeInput = { label: string; price?: number };
 
 async function generateUuid(): Promise<string> {
   try {
-    // prefer native secure RNG when available
+    
     if (Random && typeof (Random as any).getRandomBytesAsync === "function") {
       const bytes = await (Random as any).getRandomBytesAsync(16);
       const u8 = Array.isArray(bytes) ? Uint8Array.from(bytes) : bytes;
@@ -15,7 +15,6 @@ async function generateUuid(): Promise<string> {
     }
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   } catch (e) {
-    // fall through to JS fallback
   }
 
   // JS fallback (not crypto-secure, but fine for local IDs)
@@ -42,7 +41,7 @@ export async function createMenuItem({
 
   try {
     if (sizes && sizes.length > 0) {
-      // securely generate ids for each size BEFORE calling realm.write
+      // securely generates ids for each size BEFORE calling realm.write
       const ids = await Promise.all(sizes.map(() => generateUuid()));
 
       realm.write(() => {
