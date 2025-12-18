@@ -27,7 +27,7 @@
         "foregroundImage": "./assets/icons/icon.png",
         "backgroundColor": "#F9FAFB"
       },
-      "package": "com.yourcompany.bubblebrew"
+      "package": "com.rudrx75.bubblebrew"
     },
     "ios": {
       "supportsTablet": true,
