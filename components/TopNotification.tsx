@@ -35,7 +35,7 @@ export default function TopNotification({ message, visible }: Props) {
       style={[
         styles.container,
         {
-          top: insets.top + 8, // ✅ BELOW notch / camera
+          top: insets.top + 8,
           transform: [{ translateY }],
         },
       ]}
