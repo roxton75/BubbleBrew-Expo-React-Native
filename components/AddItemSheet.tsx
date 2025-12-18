@@ -14,7 +14,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-// at top of file with other imports
+
 import { Ionicons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
 import { getBottomSpace } from "react-native-iphone-x-helper";
@@ -22,7 +22,6 @@ import theme from "../constants/theme";
 import { useMenuStore } from "../state/useMenuStore";
 import * as FileSystem from "expo-file-system/legacy";
 
-// match new createMenuItem size input
 type MenuSize = { label: string; price?: number };
 
 export default function AddItemSheet({
@@ -55,7 +54,7 @@ export default function AddItemSheet({
 
   React.useEffect(() => {
     if (visible) {
-      // reset fields when opening add sheet
+ 
       setName("");
       setPrice("");
       setCategory("");
@@ -297,7 +296,7 @@ const ensureImageDir = async () => {
                       : undefined;
 
                     try {
-                      // use the store's add so the screen with active Realm listener updates immediately
+                      // uses the store's add so the screen with active Realm listener updates immediately
                       await useMenuStore.getState().add({
                         name: name.trim() || "#item",
                         basePrice,
