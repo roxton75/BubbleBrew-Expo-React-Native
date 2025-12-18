@@ -47,7 +47,7 @@ export default function SelectItemsModal({
   setSelectedIds,
   onClose,
   onContinue,
-  existingItems, // ✅ ADD THIS
+  existingItems,
 }: Props) {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   //const [selectedIds, setSelectedIds] = useState<string[]>([]);
@@ -74,11 +74,11 @@ export default function SelectItemsModal({
 
       setMenuItems(mappedItems);
 
-      // ✅ Always sync selectedIds with existingItems when modal opens
+      // Always syncs selectedIds with existingItems when modal opens
       if (existingItems?.length) {
         setSelectedIds(existingItems.map((i) => i.itemId));
       } else {
-        setSelectedIds([]); // Clear if not editing
+        setSelectedIds([]); 
       }
     };
 
@@ -100,7 +100,7 @@ export default function SelectItemsModal({
         itemId: item.id,
         name: item.name,
         price: item.price,
-        quantity: 1, // ✅ ALWAYS 1 here
+        quantity: 1,
         imageUri: item.imageUri,
       }));
 
@@ -136,7 +136,7 @@ export default function SelectItemsModal({
 
           <FlatList
             data={filteredItems}
-            extraData={selectedIds} // ⭐⭐⭐ THIS LINE
+            extraData={selectedIds}
             keyExtractor={(item) => item.id}
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => {
@@ -190,17 +190,6 @@ export default function SelectItemsModal({
                 <Text style={styles.cancelText}>Cancel</Text>
               </Pressable>
 
-              {/* <Pressable
-                style={[
-                  styles.continueBtn,
-                  selectedIds.length === 0 && {
-                    backgroundColor: theme.colors.divider,
-                  },
-                ]}
-                disabled={selectedIds.length === 0}
-              >
-                <Text style={styles.continueText}>Continue</Text>
-              </Pressable> */}
               <Pressable
                 style={[
                   styles.continueBtn,
