@@ -1,6 +1,3 @@
-// // realm/schemas.ts
-// // Realm object schemas for Bubble Brew
-
 // realm/schemas.ts
 export const MenuItemSchema = {
   name: "MenuItem",
