@@ -20,6 +20,7 @@ import * as ImagePicker from "expo-image-picker";
 import { getBottomSpace } from "react-native-iphone-x-helper";
 import theme from "../constants/theme";
 import { useMenuStore } from "../state/useMenuStore";
+import * as FileSystem from "expo-file-system";
 
 // match new createMenuItem size input
 type MenuSize = { label: string; price?: number };
@@ -50,6 +51,9 @@ export default function AddItemSheet({
 
   const scale = React.useRef(new Animated.Value(0.96)).current;
   const opacity = React.useRef(new Animated.Value(0)).current;
+
+  const FS = FileSystem as any;
+
 
   React.useEffect(() => {
     if (visible) {
@@ -100,27 +104,40 @@ export default function AddItemSheet({
     (ImagePicker as any).MediaType ??
     (ImagePicker as any).MediaTypeOptions ??
     "Images";
-
+  
   const pickImage = async () => {
     try {
       const { status } =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (status !== "granted") return;
-     
+
       const res = await ImagePicker.launchImageLibraryAsync({
-        mediaTypes: IMAGE_PICKER_MEDIA_TYPES.Images ?? IMAGE_PICKER_MEDIA_TYPES, // works whether enum or string
+        mediaTypes: IMAGE_PICKER_MEDIA_TYPES.Images ?? IMAGE_PICKER_MEDIA_TYPES,
         allowsEditing: true,
         quality: 0.7,
         aspect: [1, 1],
       });
 
-      if (!res.canceled && res.assets?.length) setImageUri(res.assets[0].uri);
-      else if (!(res as any).canceled && (res as any).uri)
-        setImageUri((res as any).uri);
+      if (res.canceled || !res.assets?.length) return;
+
+      const pickedUri = res.assets[0].uri;
+
+      const fileName = pickedUri.split("/").pop();
+      const permanentUri =
+        FS.documentDirectory + `menu_${Date.now()}_${fileName}`;
+
+      await FS.copyAsync({
+        from: pickedUri,
+        to: permanentUri,
+      });
+
+      setImageUri(permanentUri);
+
     } catch (e) {
       console.warn("pickImage error", e);
     }
   };
+
 
   const toggleChip = (lbl: string) =>
     setSelectedChip((p) => (p === lbl ? null : lbl));
